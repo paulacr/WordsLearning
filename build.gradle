@@ -1,0 +1,68 @@
+buildscript {
+    ext.kotlin_version = '1.3.72'
+    ext.gradle_version = '3.6.2'
+    ext.jacoco_version = '0.8.3'
+    ext.safe_args_version = '2.1.0-alpha04'
+    ext.gradle_lint_version = '11.5.0'
+    ext.google_services_version = '4.3.3'
+    ext.fabric_version = '1.31.2'
+    ext.monitoring_version = '1.3.1'
+    ext.crashlytics = '2.0.0'
+
+    repositories {
+        maven {
+            url 'https://maven.fabric.io/public'
+
+        }
+
+        //common repositories
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$safe_args_version"
+        classpath "com.netflix.nebula:gradle-lint-plugin:$gradle_lint_version"
+        classpath "com.google.gms:google-services:$google_services_version"
+        classpath "io.fabric.tools:gradle:$fabric_version"
+        classpath "com.google.firebase:perf-plugin:$monitoring_version"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$crashlytics"
+    }
+}
+
+allprojects {
+    apply plugin: 'nebula.lint'
+    gradleLint {
+        alwaysRun = false
+        criticalRules = ['all-dependency', 'duplicate-dependency-class']
+    }
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext.versions = [
+        rxjava           : '3.0.0',
+        okHttp           : '3.10.0',
+        appCompat        : '1.1.0',
+        coreKtx          : '1.2.0',
+        constraintLayout : '1.1.3',
+        fcrashlytics     : '17.0.0',
+        firebase         : '17.4.0',
+        crashlytics      : '2.10.1',
+        materialDesign   : '28.0.0',
+        koin             : '2.1.5'
+]
+
+ext.appConfig = [
+        minVersion       : 22,
+        compileVersion   : 28,
+        targetVersion    : 28
+]

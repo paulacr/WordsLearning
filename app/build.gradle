@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+apply plugin: 'jacoco'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion appConfig.compileVersion
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.paulacr.languagelearning"
+        minSdkVersion appConfig.minVersion
+        targetSdkVersion appConfig.targetVersion
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME as String
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            resValue "string", "fabric_key", "AIzaSyAIkilc6NxZq-9mHPh8qG_R-tVbLd4ALCk"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // UI
+    implementation "androidx.appcompat:appcompat:$versions.appCompat"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+    implementation "com.android.support:design:$versions.materialDesign"
+
+    // KOTLIN
+    implementation "androidx.core:core-ktx:$versions.coreKtx"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // NETWORKING
+    implementation "io.reactivex.rxjava3:rxandroid:$versions.rxjava"
+    implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava"
+    implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
+
+    // DEPENDENCY INJECTION
+    implementation "org.koin:koin-core:$versions.koin"
+    implementation "org.koin:koin-androidx-scope:$versions.koin"
+    implementation "org.koin:koin-androidx-ext:$versions.koin"
+
+    // ANALYTICS / MONITORING
+    implementation "com.google.firebase:firebase-analytics:$versions.firebase"
+    implementation "com.google.firebase:firebase-crashlytics:$versions.fcrashlytics"
+    implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
+
+    // TESTS
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.koin:koin-test:$versions.koin"
+}
+
+apply from: '../jacoco.gradle'

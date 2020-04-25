@@ -1,0 +1,35 @@
+apply plugin: 'jacoco'
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/databinding/**/*.*',
+            '**/android/databinding/*Binding.*',
+            '**/DataBinderMapperImpl.class',
+            '**/*ViewInjector*.*',
+            '**/*ViewBinder*.*',
+            '**/*_ViewBinding*.*',
+            '**/*Module*DI*.*',
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*Activity*.*',
+            '**/*Fragment*.*'
+    ]
+
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+//    sourceDirectories = files([mainSrc])
+//    classDirectories = files([debugTree])
+//    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
+}
