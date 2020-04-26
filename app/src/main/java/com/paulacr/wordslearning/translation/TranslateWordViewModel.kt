@@ -8,5 +8,4 @@ class TranslateWordViewModel(private val translateRepository: TranslateWordRepos
     fun test() {
         Log.i("DI", "this sh*t works")
     }
-
 }

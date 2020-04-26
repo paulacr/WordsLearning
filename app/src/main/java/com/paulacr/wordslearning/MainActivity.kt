@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //force crash
+        // force crash
         testCrash.setOnClickListener {
             viewModel.test()
             Snackbar.make(it, "Crash fired", Snackbar.LENGTH_LONG).show()
