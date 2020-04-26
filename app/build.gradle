@@ -27,6 +27,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    
     buildTypes {
         debug {
             resValue "string", "fabric_key", "AIzaSyAIkilc6NxZq-9mHPh8qG_R-tVbLd4ALCk"
