@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         testCrash.setOnClickListener {
             viewModel.test()
             Snackbar.make(it, "Crash fired", Snackbar.LENGTH_LONG).show()
+            testCrash()
         }
     }
 

@@ -8,36 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:768646901205:android:fb9826a2e666bb15d2615c",
-        "android_client_info": {
-          "package_name": "com.paulacr.languagelearning"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "768646901205-10ktn17vpb8b9m7c2oui1tbfp5frb7ps.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAIkilc6NxZq-9mHPh8qG_R-tVbLd4ALCk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "768646901205-10ktn17vpb8b9m7c2oui1tbfp5frb7ps.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:768646901205:android:2b4e625926096c86d2615c",
+        "mobilesdk_app_id": "1:768646901205:android:e36c3e7877566348d2615c",
         "android_client_info": {
           "package_name": "com.paulacr.wordslearning"
         }

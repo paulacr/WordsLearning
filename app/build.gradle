@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.paulacr.languagelearning"
+        applicationId "com.paulacr.wordslearning"
         minSdkVersion appConfig.minVersion
         targetSdkVersion appConfig.targetVersion
         versionCode VERSION_CODE as int
