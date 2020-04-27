@@ -1,14 +1,14 @@
-package com.paulacr.wordslearning
+package com.paulacr.wordslearning.translation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
-import com.paulacr.wordslearning.translation.TranslateWordViewModel
+import com.paulacr.wordslearning.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class TranslateWordActivity : AppCompatActivity() {
 
     val viewModel by viewModel<TranslateWordViewModel>()
 
