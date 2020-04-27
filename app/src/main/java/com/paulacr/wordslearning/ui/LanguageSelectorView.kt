@@ -13,10 +13,12 @@ class LanguageSelectorView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
+
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
-        val view = LayoutInflater.from(context).inflate(R.layout.language_selector_view, this, false)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.language_selector_view, this, false)
         val set = ConstraintSet()
         addView(view)
 
