@@ -7,7 +7,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion appConfig.compileVersion 
+    compileSdkVersion appConfig.compileVersion
 
     dataBinding {
         enabled = true
