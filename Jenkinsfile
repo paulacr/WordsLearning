@@ -5,7 +5,7 @@ pipeline {
         stage('Lint') {
             steps {
                 sh """
-                    ./gradlew ktLintDebugCheck
+                    ./gradlew ktlint
                 """
             }
         }
