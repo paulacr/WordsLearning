@@ -1,7 +1,6 @@
 package com.paulacr.wordslearning.network
 
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
 
 const val AUTH_KEY = "Ocp-Apim-Subscription-Key"
