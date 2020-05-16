@@ -1,3 +1,6 @@
+@Library('jenkins_library@master')
+import com.pratclot.*
+
 slack = new Slack(this).startThread()
 extendedSteps = new ExtendedSteps(this)
 
