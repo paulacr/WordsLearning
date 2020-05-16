@@ -1,5 +1,5 @@
 <resources>
-    <string name="base_url" translatable="false">https://wordslearning.cognitiveservices.azure.com/</string>
+    <string name="base_url" translatable="false">https://api-eur.cognitive.microsofttranslator.com/</string>
     <string name="app_name">wordslearning</string>
     <string name="accessibility_reverse_languages">revert languages</string>
 
