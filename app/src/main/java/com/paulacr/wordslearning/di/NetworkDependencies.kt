@@ -3,6 +3,7 @@ package com.paulacr.wordslearning.di
 import android.content.res.Resources
 import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.network.ApiService
+import com.paulacr.wordslearning.network.RequestInterceptor
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
@@ -33,6 +34,7 @@ internal val networkDependencies = module {
 
         OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(RequestInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

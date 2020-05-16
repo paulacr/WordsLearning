@@ -6,14 +6,20 @@ import androidx.lifecycle.Observer
 import com.crashlytics.android.Crashlytics
 import com.google.android.material.snackbar.Snackbar
 import com.paulacr.wordslearning.R
-import com.paulacr.wordslearning.data.Repo
+import com.paulacr.wordslearning.data.Language
+import com.paulacr.wordslearning.data.Text
+import com.paulacr.wordslearning.data.Translations
+import com.paulacr.wordslearning.ui.LanguageSelectorView
+import com.paulacr.wordslearning.ui.OnLanguageSelected
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.language_selector_view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TranslateWordActivity : AppCompatActivity() {
+class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
 
-    val viewModel by viewModel<TranslateWordViewModel>()
-    lateinit var reposObserver: Observer<List<Repo>>
+    private val viewModel by viewModel<TranslateWordViewModel>()
+    private lateinit var reposObserver: Observer<List<Text>>
+    private lateinit var languageSelectorView: LanguageSelectorView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,17 +27,36 @@ class TranslateWordActivity : AppCompatActivity() {
         setupObservers()
 
         textView.setOnClickListener {
-            viewModel.getRepos()
-            Snackbar.make(it, "getting repos", Snackbar.LENGTH_LONG).show()
+            viewModel.translateWord("random text")
+//            Snackbar.make(it, "getting repos", Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        languageSelectorView = findViewById(R.id.languageSelectorView)
+        languageSelectorView.setListener(this)
+    }
+
+    override fun onDestroy() {
+        languageSelectorView.setListener(null)
+        super.onDestroy()
     }
 
     private fun setupObservers() {
-        reposObserver = Observer<List<Repo>> {
+        reposObserver = Observer<List<Text>> {
             textView.text = it.joinToString(",")
         }
-        viewModel.repos.observe(this, reposObserver)
+        viewModel.translation.observe(this, reposObserver)
     }
 
     private fun testCrash() = Crashlytics.getInstance().crash()
+
+    override fun onFromLanguageSelected(language: Language) {
+        viewModel.fromLanguage = language
+    }
+
+    override fun onToLanguageSelected(language: Language) {
+        viewModel.toLanguage = language
+    }
 }

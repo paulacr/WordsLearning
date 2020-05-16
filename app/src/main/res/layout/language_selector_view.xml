@@ -8,7 +8,7 @@
     android:background="@color/gray">
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/originLanguage"
+        android:id="@+id/fromLanguage"
         style="@style/DefaultSpinnerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,13 +24,13 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_reverse_languages"
         android:src="@android:drawable/arrow_down_float"
-        app:layout_constraintBottom_toBottomOf="@+id/originLanguage"
-        app:layout_constraintEnd_toStartOf="@+id/translatedLanguage"
-        app:layout_constraintStart_toEndOf="@+id/originLanguage"
+        app:layout_constraintBottom_toBottomOf="@+id/fromLanguage"
+        app:layout_constraintEnd_toStartOf="@+id/toLanguage"
+        app:layout_constraintStart_toEndOf="@+id/fromLanguage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/translatedLanguage"
+        android:id="@+id/toLanguage"
         style="@style/DefaultSpinnerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

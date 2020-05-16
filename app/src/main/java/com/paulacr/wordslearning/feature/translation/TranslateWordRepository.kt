@@ -1,9 +1,9 @@
 package com.paulacr.wordslearning.feature.translation
 
-import com.paulacr.wordslearning.data.Repo
+import com.paulacr.wordslearning.data.Language
+import com.paulacr.wordslearning.data.Translations
 import io.reactivex.rxjava3.core.Single
 
 interface TranslateWordRepository {
-
-    fun getRepos(): Single<List<Repo>>
+    fun translateWord(from: Language, to: Language, text: String): Single<Translations>
 }
