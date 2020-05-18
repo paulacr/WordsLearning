@@ -29,6 +29,6 @@ val translateWordDataSourceModule = module {
 //    } bind WordsLearningApi::class
 
     single {
-        TranslateWordRepositoryImpl(get(named<TranslateWordApi>()))
+        TranslateWordRepositoryImpl()
     } bind TranslateWordRepository::class
 }

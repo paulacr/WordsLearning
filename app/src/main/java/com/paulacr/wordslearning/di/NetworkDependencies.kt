@@ -29,7 +29,7 @@ internal val networkDependencies = module {
     factory(named(DEFAULT_HTTP)) {
         val showLogs = get<Resources>().getBoolean(R.bool.show_logging)
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            level = if (showLogs) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+            level = if (showLogs) HttpLoggingInterceptor.Level.HEADERS else HttpLoggingInterceptor.Level.NONE
         }
 
         OkHttpClient.Builder()

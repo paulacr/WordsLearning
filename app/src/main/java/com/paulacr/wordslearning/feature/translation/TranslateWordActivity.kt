@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
 
     private val viewModel by viewModel<TranslateWordViewModel>()
-    private lateinit var reposObserver: Observer<List<Text>>
+    private lateinit var reposObserver: Observer<String>
     private lateinit var languageSelectorView: LanguageSelectorView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +42,8 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
     }
 
     private fun setupObservers() {
-        reposObserver = Observer<List<Text>> {
-            textView.text = it.joinToString(",")
+        reposObserver = Observer<String> {
+            textView.text = it
         }
         viewModel.translation.observe(this, reposObserver)
     }

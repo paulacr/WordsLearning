@@ -95,6 +95,10 @@ dependencies {
     implementation "com.google.firebase:firebase-crashlytics:$versions.fcrashlytics"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
 
+    // TRANSLATOR
+    implementation 'com.google.firebase:firebase-ml-natural-language:22.0.0'
+    implementation 'com.google.firebase:firebase-ml-natural-language-translate-model:20.0.8'
+
     // TESTS
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

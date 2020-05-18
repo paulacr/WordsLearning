@@ -1,9 +1,14 @@
 package com.paulacr.wordslearning.feature.translation
 
-import com.paulacr.wordslearning.data.Language
-import com.paulacr.wordslearning.data.Translations
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.functions.Consumer
 
 interface TranslateWordRepository {
-    fun translateWord(from: Language, to: Language, text: String): Single<Translations>
+
+    fun subscribeToTranslator(
+        result: Consumer<in String>,
+        error: Consumer<in Throwable>
+    ) : Disposable
+
+    fun translateWord(word: String): Unit
 }
