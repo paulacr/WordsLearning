@@ -8,7 +8,7 @@ interface TranslateWordRepository {
     fun subscribeToTranslator(
         result: Consumer<in String>,
         error: Consumer<in Throwable>
-    ) : Disposable
+    ): Disposable
 
     fun translateWord(word: String): Unit
 }

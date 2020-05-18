@@ -10,4 +10,3 @@ val options = FirebaseTranslatorOptions.Builder()
     .build()
 
 val translator = FirebaseNaturalLanguage.getInstance().getTranslator(options)
-

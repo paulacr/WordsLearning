@@ -12,7 +12,6 @@ class TranslateWordApi(private val api: ApiService) : TranslateWordDataSource {
     var translatedText = ""
     override fun translateWithFirebase(text: String): Single<String> {
 
-
         return Single.just(translatedText)
     }
 }
