@@ -1,3 +1,6 @@
 package com.paulacr.wordslearning.common
 
-class SetupLanguageMissingException : Exception()
+class Exceptions {
+
+    class SetupLanguageMissingException : Exception()
+}

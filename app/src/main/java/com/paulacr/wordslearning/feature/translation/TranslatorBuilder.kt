@@ -3,7 +3,7 @@ package com.paulacr.wordslearning.feature.translation
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
-import com.paulacr.wordslearning.common.SetupLanguageMissingException
+import com.paulacr.wordslearning.common.Exceptions.SetupLanguageMissingException
 import com.paulacr.wordslearning.data.Language
 
 private lateinit var translator: FirebaseTranslator
