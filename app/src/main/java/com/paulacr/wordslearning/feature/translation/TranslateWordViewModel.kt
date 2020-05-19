@@ -28,7 +28,7 @@ class TranslateWordViewModel(
     }
 
     fun translateWord(word: String) {
-        translateRepository.translateWord(word)
+        translateRepository.translateWord(fromLanguage, toLanguage, word)
     }
 
     private fun translateResult(): Consumer<String> = Consumer {

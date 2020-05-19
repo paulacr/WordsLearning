@@ -25,7 +25,6 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
 
         textView.setOnClickListener {
             viewModel.translateWord("random text")
-//            Snackbar.make(it, "getting repos", Snackbar.LENGTH_LONG).show()
         }
     }
 

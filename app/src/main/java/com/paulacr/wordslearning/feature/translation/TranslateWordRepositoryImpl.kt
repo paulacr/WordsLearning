@@ -1,5 +1,6 @@
 package com.paulacr.wordslearning.feature.translation
 
+import com.paulacr.wordslearning.data.Language
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
@@ -15,14 +16,15 @@ class TranslateWordRepositoryImpl : TranslateWordRepository {
         error: Consumer<in Throwable>
     ): Disposable =
         translateSubject
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result, error)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(result, error)
 
-    override fun translateWord(word: String) {
-        translator.downloadModelIfNeeded()
+    override fun translateWord(from: Language, to: Language, word: String) {
+        getTranslator(from, to).downloadModelIfNeeded()
             .addOnSuccessListener {
-                translator.translate("Hi")
+
+                getTranslator(from, to).translate(word)
                     .addOnSuccessListener {
                         translateSubject.onNext(it)
                     }

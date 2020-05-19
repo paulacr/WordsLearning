@@ -8,25 +8,11 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-// object RepositoryModules {
-//    fun init() {
-//        loadKoinModules(
-//            listOf(
-//                translateWordRepository
-//            )
-//        )
-//    }
-// }
-
 val translateWordDataSourceModule = module {
 
     single(named<TranslateWordApi>()) {
         TranslateWordApi(get())
     } bind TranslateWordDataSource::class
-
-//    single(named<WordsLearningApiImpl>()) {
-//        WordsLearningApiImpl(get())
-//    } bind WordsLearningApi::class
 
     single {
         TranslateWordRepositoryImpl()
