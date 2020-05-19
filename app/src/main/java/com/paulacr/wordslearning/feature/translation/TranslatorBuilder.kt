@@ -7,7 +7,7 @@ import com.paulacr.wordslearning.common.SetupLanguageMissingException
 import com.paulacr.wordslearning.data.Language
 
 private lateinit var translator: FirebaseTranslator
-private var options : FirebaseTranslatorOptions? = null
+private var options: FirebaseTranslatorOptions? = null
 
 fun getTranslator(from: Language, to: Language): FirebaseTranslator {
 
