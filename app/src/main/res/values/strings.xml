@@ -2,6 +2,8 @@
     <string name="base_url" translatable="false">https://api.cognitive.microsofttranslator.com/</string>
     <string name="app_name">wordslearning</string>
     <string name="accessibility_reverse_languages">revert languages</string>
+    <string name="word_to_translate_hint">Enter text here</string>
+    <string name="accessibility_translate_button">translate button</string>
 
     <string-array name="languages">
         <item>English</item>

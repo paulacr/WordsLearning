@@ -25,6 +25,7 @@ android {
         versionCode VERSION_CODE as int
         versionName VERSION_NAME as String
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
 
@@ -69,6 +70,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appCompat"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "com.android.support:design:$versions.materialDesign"
+    implementation "com.google.android.material:material:1.2.0-alpha06"
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
 
     // KOTLIN
     implementation "androidx.core:core-ktx:$versions.coreKtx"
@@ -79,7 +82,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:$versions.rxjava"
     implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava"
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$versions.rxJavaAdapter"
-//    implementation "com.squareup.retrofit2:adapter-rxjava3:$versions.rxJavaAdapter"
     implementation "com.squareup.retrofit2:converter-gson:$versions.gsonConverter"
     implementation "com.google.code.gson:gson:$versions.gson"
     implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
@@ -96,8 +98,11 @@ dependencies {
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
 
     // TRANSLATOR
-    implementation 'com.google.firebase:firebase-ml-natural-language:22.0.0'
-    implementation 'com.google.firebase:firebase-ml-natural-language-translate-model:20.0.8'
+    implementation "com.google.firebase:firebase-ml-natural-language:$versions.firebaseNatLang"
+    implementation "com.google.firebase:firebase-ml-natural-language-translate-model:$versions.firebaseNatModel"
+
+    // ANIMATION
+    implementation "com.airbnb.android:lottie:$versions.lottie"
 
     // TESTS
     testImplementation 'junit:junit:4.12'

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.paulacr.wordslearning.R
@@ -20,7 +21,7 @@ class LanguageSelectorView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr), AdapterView.OnItemSelectedListener {
 
     private lateinit var spinnerAdapter: ArrayAdapter<Language>
-    var onLanguageSelected: OnLanguageSelected? = null
+    private var onLanguageSelected: OnLanguageSelected? = null
     private val languages = Language.values()
 
     init {
@@ -44,16 +45,16 @@ class LanguageSelectorView @JvmOverloads constructor(
     private fun setupSpinners() {
 
         this.findViewById<Spinner>(R.id.fromLanguage).apply {
-            adapter = getSpinnerAdapter()
-            this.setSelection(1)
-            this.onItemSelectedListener = this@LanguageSelectorView
-        }
+                adapter = getSpinnerAdapter()
+                this.setSelection(1)
+                this.onItemSelectedListener = this@LanguageSelectorView
+            }
 
         this.findViewById<Spinner>(R.id.toLanguage).apply {
-            adapter = getSpinnerAdapter()
-            this.setSelection(2)
-            this.onItemSelectedListener = this@LanguageSelectorView
-        }
+                adapter = getSpinnerAdapter()
+                this.setSelection(2)
+                this.onItemSelectedListener = this@LanguageSelectorView
+            }
     }
 
     private fun getSpinnerAdapter(): ArrayAdapter<Language> {
