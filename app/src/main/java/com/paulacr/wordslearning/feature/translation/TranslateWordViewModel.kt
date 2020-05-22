@@ -55,7 +55,6 @@ class TranslateWordViewModel(
     }
 
     fun onTextChanged(text: String?) {
-
     }
 
     override fun onCleared() {

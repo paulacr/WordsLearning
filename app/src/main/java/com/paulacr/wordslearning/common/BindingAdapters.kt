@@ -8,8 +8,6 @@ import androidx.databinding.BindingAdapter
 
 class BindingAdapters {
 
-
-
     @BindingAdapter("app:textChangedListener")
     fun onTextChanged(et: EditText, number: Int) {
         et.addTextChangedListener(object : TextWatcher {

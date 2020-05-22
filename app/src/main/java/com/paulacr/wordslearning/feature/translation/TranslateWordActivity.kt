@@ -1,14 +1,12 @@
 package com.paulacr.wordslearning.feature.translation
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.annotation.AnimRes
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.crashlytics.android.Crashlytics
@@ -16,12 +14,12 @@ import com.devs.vectorchildfinder.VectorChildFinder
 import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.databinding.ActivityMainBinding
-import com.paulacr.wordslearning.feature.translation.TranslationState.*
+import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
+import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import com.paulacr.wordslearning.ui.LanguageSelectorView
 import com.paulacr.wordslearning.ui.OnLanguageSelected
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
 
