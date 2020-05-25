@@ -3,92 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <import type="android.text.TextUtils" />
-
-        <variable
-            name="model"
-            type="com.paulacr.wordslearning.feature.translation.TranslationInfo" />
-
-        <variable
-            name="viewModel"
-            type="com.paulacr.wordslearning.feature.translation.TranslateWordViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature.translation.TranslateWordActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wordField"
-            style="@style/TranslateWordTextInputLayout"
+        <FrameLayout
+            android:id="@+id/translateContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:labelFor="@id/wordFieldEditText"
-            app:endIconMode="clear_text"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/languageSelectorView">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <EditText
-                android:id="@+id/wordFieldEditText"
-                style="@style/TranslateWordEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="no"
-                android:onTextChanged="@{viewModel.onTranslateWordTextChanged}"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textTranslated"
-            style="@style/TranslatedText"
+        <FrameLayout
+            android:id="@+id/wordListContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.textTranslated}"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordField"
-            tools:text="Translated text"
-            tools:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/translateButtonPlaceholder"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/accessibility_translate_button"
-            android:onClick="@{() -> viewModel.onTranslate(wordFieldEditText.getText().toString())}"
-            android:src="@drawable/ic_tick"
-            app:layout_constraintBottom_toBottomOf="@id/wordField"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordField" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/translateAnimation"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:layout_constraintBottom_toBottomOf="@+id/wordField"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordField"
-            app:lottie_autoPlay="false"
-            app:lottie_rawRes="@raw/success" />
-
-        <com.paulacr.wordslearning.ui.LanguageSelectorView
-            android:id="@+id/languageSelectorView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/translateContainer"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
