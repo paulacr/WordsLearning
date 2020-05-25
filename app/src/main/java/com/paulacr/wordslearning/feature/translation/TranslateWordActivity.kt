@@ -14,6 +14,9 @@ import com.devs.vectorchildfinder.VectorChildFinder
 import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.databinding.ActivityMainBinding
+import com.paulacr.wordslearning.feature.translation.TranslationState.DISABLED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ENABLED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ERROR
 import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
 import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import com.paulacr.wordslearning.ui.LanguageSelectorView
@@ -34,8 +37,8 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
         binding.viewModel = viewModel
 
         setupObservers()
-        setInitialUI()
         setOnClearedTextListener()
+        disableTranslateButton()
     }
 
     override fun onResume() {
@@ -49,8 +52,14 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
         super.onDestroy()
     }
 
-    private fun setInitialUI() {
+    private fun enableTranslateButton() {
+        changeTranslateButtonPlaceHolderColor(R.color.green_light)
+        translateButtonPlaceholder.isEnabled = true
+    }
+
+    private fun disableTranslateButton() {
         changeTranslateButtonPlaceHolderColor(R.color.gray)
+        translateButtonPlaceholder.isEnabled = false
     }
 
     private fun changeTranslateButtonPlaceHolderColor(@ColorRes color: Int) {
@@ -78,6 +87,8 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
     private fun setupObservers() {
         translationObserver = Observer<TranslationState> {
             when (it) {
+                ENABLED -> enableTranslateButton()
+                DISABLED -> disableTranslateButton()
                 STARTED -> {
                     translateAnimation.visibility = View.VISIBLE
                     translateAnimation.playAnimation()
@@ -85,6 +96,9 @@ class TranslateWordActivity : AppCompatActivity(), OnLanguageSelected {
                 FINISHED -> {
                     textTranslated.visibility = View.VISIBLE
                     animateView(textTranslated, R.anim.fade_in)
+                }
+                ERROR -> {
+                    // show snack bar with error
                 }
             }
         }
