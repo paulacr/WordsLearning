@@ -1,11 +1,11 @@
 package com.paulacr.wordslearning.feature.wordslist
 
-import com.paulacr.wordslearning.data.Word
+import com.paulacr.wordslearning.data.TextWord
 
 interface WordsListRepository {
-    fun addItem(word: Word)
+    fun addItem(word: TextWord)
 
-    fun removeItem(word: Word)
+    fun removeItem(word: TextWord)
 
     // todo
     fun moveToCategory()

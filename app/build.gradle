@@ -72,6 +72,7 @@ dependencies {
     implementation "com.android.support:design:$versions.materialDesign"
     implementation "com.google.android.material:material:1.2.0-alpha06"
     implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
+    implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
 
     // KOTLIN
     implementation "androidx.core:core-ktx:$versions.coreKtx"

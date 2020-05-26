@@ -1,18 +1,18 @@
 package com.paulacr.wordslearning.feature.wordslist
 
 import com.paulacr.wordslearning.common.Exceptions
-import com.paulacr.wordslearning.data.Word
+import com.paulacr.wordslearning.data.TextWord
 
 class WordsListRepositoryImpl : WordsListRepository {
 
-    var wordsList = mutableListOf<Word>()
+    var wordsList = mutableListOf<TextWord>()
 
-    override fun addItem(word: Word) {
+    override fun addItem(word: TextWord) {
         if (wordsList.contains(word)) throw Exceptions.WordAlreadySavedException()
         wordsList.add(word)
     }
 
-    override fun removeItem(word: Word) {
+    override fun removeItem(word: TextWord) {
         wordsList.remove(word)
     }
 
