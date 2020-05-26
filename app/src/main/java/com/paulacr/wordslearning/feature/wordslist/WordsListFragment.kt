@@ -17,7 +17,6 @@ import com.paulacr.wordslearning.data.buildWordItems
 import com.paulacr.wordslearning.databinding.FragmentWordsListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class WordsListFragment : Fragment() {
 
     private val viewModel by viewModel<WordsListViewModel>()
@@ -62,5 +61,4 @@ class WordsListFragment : Fragment() {
         ImageWord(1, android.R.mipmap.sym_def_app_icon, "xxx", "yyyy"),
         ImageWord(2, R.drawable.ic_tick, "xxx", "yyyy")
     )
-
 }

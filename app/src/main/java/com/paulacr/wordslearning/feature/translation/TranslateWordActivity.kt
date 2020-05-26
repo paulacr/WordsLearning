@@ -11,7 +11,7 @@ import com.paulacr.wordslearning.R
 
 class TranslateWordActivity : AppCompatActivity() {
 
-    lateinit var appBarConfiguration : AppBarConfiguration
+    lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +29,6 @@ class TranslateWordActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .add(R.id.nav_host_fragment, TranslateWordFragment()).commit()
-
-
 
 //        supportFragmentManager.beginTransaction()
 //            .add(R.id.wordListContainer, WordsListFragment()).commit()

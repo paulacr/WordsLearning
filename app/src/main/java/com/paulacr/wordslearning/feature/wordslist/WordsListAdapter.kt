@@ -44,7 +44,7 @@ class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Ada
 
     override fun getItemViewType(position: Int): Int {
         val comparable = listItems[position]
-        return when(comparable) {
+        return when (comparable) {
             is TextWord -> TEXT_WORD_TYPE
             is ImageWord -> IMAGE_WORD_TYPE
             else -> throw IllegalArgumentException("Invalid type at $position")

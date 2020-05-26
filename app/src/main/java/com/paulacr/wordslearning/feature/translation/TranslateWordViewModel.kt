@@ -1,12 +1,15 @@
 package com.paulacr.wordslearning.feature.translation
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.paulacr.wordslearning.common.Exceptions
 import com.paulacr.wordslearning.data.Language
-import com.paulacr.wordslearning.feature.translation.TranslationState.*
+import com.paulacr.wordslearning.feature.translation.TranslationState.DISABLED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ENABLED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ERROR
+import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
+import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Consumer
 
@@ -57,7 +60,9 @@ class TranslateWordViewModel(
     }
 
     fun onTranslateWordTextChanged(
-        s: CharSequence, start: Int, before: Int,
+        s: CharSequence,
+        start: Int,
+        before: Int,
         count: Int
     ) {
         if (s.isNotEmpty()) translation.postValue(ENABLED)
