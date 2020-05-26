@@ -67,7 +67,8 @@ ext.versions = [
         loggingIntercept : '4.2.1',
         lottie           : '3.2.0',
         firebaseNatLang  : '22.0.0',
-        firebaseNatModel : '20.0.8'
+        firebaseNatModel : '20.0.8',
+        navigation       : '2.3.0-alpha01'
 ]
 
 ext.appConfig = [

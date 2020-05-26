@@ -1,9 +1,11 @@
 package com.paulacr.wordslearning.feature.wordslist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +16,7 @@ import com.paulacr.wordslearning.data.TextWord
 import com.paulacr.wordslearning.data.buildWordItems
 import com.paulacr.wordslearning.databinding.FragmentWordsListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class WordsListFragment : Fragment() {
 
@@ -41,9 +44,12 @@ class WordsListFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 2)
             adapter = WordsListAdapter(buildWordItems(mockedTextData, mockedImageData))
-//            addItemDecoration(GridDividerItemDecoration(, R.drawable.grid_divider, 2))
+            addItemDecoration(GridDividerItemDecoration(getDivider(context), getDivider(context), 2))
         }
     }
+
+    private fun getDivider(context: Context) =
+        ContextCompat.getDrawable(context, R.drawable.grid_divider)
 
     private val mockedTextData = arrayOf(
         TextWord(0, "first name", "first pronunciation", "translation 1"),

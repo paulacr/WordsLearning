@@ -11,8 +11,8 @@ import com.paulacr.wordslearning.data.ImageWord
 import com.paulacr.wordslearning.data.TextWord
 import com.paulacr.wordslearning.data.WordItem
 
-private val TEXT_WORD_TYPE = 0
-private val IMAGE_WORD_TYPE = 1
+private const val TEXT_WORD_TYPE = 0
+private const val IMAGE_WORD_TYPE = 1
 
 class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
@@ -54,11 +54,9 @@ class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Ada
     inner class TextWordViewHolder(itemView: View) : BaseViewHolder<TextWord>(itemView) {
         override fun bind(item: TextWord) {
             val name = itemView.findViewById<TextView>(R.id.name)
-            val pronunciation = itemView.findViewById<TextView>(R.id.pronunciation)
             val translation = itemView.findViewById<TextView>(R.id.translation)
 
             name.text = item.name
-            pronunciation.text = item.pronunciation
             translation.text = item.translation
         }
     }
@@ -67,11 +65,9 @@ class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Ada
         override fun bind(item: ImageWord) {
             val miniature = itemView.findViewById<ImageView>(R.id.miniature)
             val name = itemView.findViewById<TextView>(R.id.imageTextName)
-            val pronunciation = itemView.findViewById<TextView>(R.id.imageTextPronunciation)
 
             miniature.setImageResource(item.imageRes)
             name.text = item.name
-            pronunciation.text = item.pronunciation
         }
     }
 }

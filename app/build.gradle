@@ -5,6 +5,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'jacoco'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion appConfig.compileVersion
@@ -16,6 +17,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     defaultConfig {
@@ -73,6 +78,8 @@ dependencies {
     implementation "com.google.android.material:material:1.2.0-alpha06"
     implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
     implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 
     // KOTLIN
     implementation "androidx.core:core-ktx:$versions.coreKtx"

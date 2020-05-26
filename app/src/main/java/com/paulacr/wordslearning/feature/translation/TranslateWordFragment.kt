@@ -2,6 +2,9 @@ package com.paulacr.wordslearning.feature.translation
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -11,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.crashlytics.android.Crashlytics
 import com.devs.vectorchildfinder.VectorChildFinder
 import com.paulacr.wordslearning.R
@@ -38,8 +42,10 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_translate_word, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_translate_word, container, false)
         binding.viewModel = viewModel
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -124,5 +130,19 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
 
     override fun onToLanguageSelected(language: Language) {
         viewModel.toLanguage = language
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.ic_words_list) {
+            findNavController().navigate(
+                TranslateWordFragmentDirections.actionFragmentWordsList())
+        }
+        return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

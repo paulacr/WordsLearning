@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/nav_fragment_translate_word">
+
+    <fragment
+        android:id="@+id/nav_fragment_translate_word"
+        android:label="Word Translate"
+        android:name="com.paulacr.wordslearning.feature.translation.TranslateWordFragment"
+        tools:layout="@layout/fragment_translate_word">
+
+        <action android:id="@+id/action_fragment_words_list"
+            app:destination="@id/nav_fragment_words_list"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_words_list"
+        android:label="Navigation Words List"
+        android:name="com.paulacr.wordslearning.feature.wordslist.WordsListFragment"
+        tools:layout="@layout/fragment_words_list"/>
+
+</navigation>
