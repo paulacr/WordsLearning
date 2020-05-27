@@ -6,6 +6,7 @@
     <string name="accessibility_translate_button">translate button</string>
     <string name="words_list">Words List</string>
     <string name="actionBarTitle">Words Learning</string>
+    <string name="accessibility_clear_text_button">clear text button</string>
 
     <string-array name="languages">
         <item>English</item>

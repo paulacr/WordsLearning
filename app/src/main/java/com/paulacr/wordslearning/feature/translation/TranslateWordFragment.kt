@@ -27,7 +27,6 @@ import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
 import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import com.paulacr.wordslearning.ui.LanguageSelectorView
 import com.paulacr.wordslearning.ui.OnLanguageSelected
-import kotlinx.android.synthetic.main.fragment_translate_word.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TranslateWordFragment : Fragment(), OnLanguageSelected {
@@ -50,15 +49,11 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupObservers()
-        setOnClearedTextListener()
-        disableTranslateButton()
-    }
-
     override fun onResume() {
         super.onResume()
-        languageSelectorView = languageSelector
+        setupObservers()
+        disableTranslateButton()
+        languageSelectorView = binding.languageSelector
         languageSelectorView.setListener(this)
     }
 
@@ -69,16 +64,17 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
 
     private fun enableTranslateButton() {
         changeTranslateButtonPlaceHolderColor(R.color.green_light)
-        translateButtonPlaceholder.isEnabled = true
+        binding.translateButtonPlaceholder.isEnabled = true
     }
 
     private fun disableTranslateButton() {
         changeTranslateButtonPlaceHolderColor(R.color.gray)
-        translateButtonPlaceholder.isEnabled = false
+        binding.translateButtonPlaceholder.isEnabled = false
     }
 
     private fun changeTranslateButtonPlaceHolderColor(@ColorRes color: Int) {
-        val vector = VectorChildFinder(context, R.drawable.ic_tick, translateButtonPlaceholder)
+        val vector =
+            VectorChildFinder(context, R.drawable.ic_tick, binding.translateButtonPlaceholder)
         val path1 = vector.findPathByName("path_1")
         context?.let {
             path1.fillColor = ContextCompat.getColor(it, color)
@@ -89,30 +85,31 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
         view.startAnimation(AnimationUtils.loadAnimation(context, animation))
     }
 
-    private fun setOnClearedTextListener() {
-        wordField.setEndIconOnClickListener {
-            if (textTranslated.visibility == View.VISIBLE) {
-                animateView(textTranslated, R.anim.fade_out)
-                textTranslated.visibility = View.GONE
-            }
-            changeTranslateButtonPlaceHolderColor(R.color.gray)
-            wordFieldEditText.setText("")
-            translateAnimation.visibility = View.GONE
-        }
-    }
-
     private fun setupObservers() {
         translationObserver = Observer<TranslationState> {
             when (it) {
-                ENABLED -> enableTranslateButton()
-                DISABLED -> disableTranslateButton()
+                ENABLED -> {
+                    enableTranslateButton()
+                    binding.clearTextButton.visibility = View.VISIBLE
+                }
+                DISABLED -> {
+                    disableTranslateButton()
+                    binding.wordFieldEditText.text.clear()
+                    binding.clearTextButton.visibility = View.GONE
+                    binding.translateAnimation.visibility = View.GONE
+
+                    if (binding.textTranslated.visibility == View.VISIBLE) {
+                        animateView(binding.textTranslated, R.anim.fade_out)
+                        binding.textTranslated.visibility = View.INVISIBLE
+                    }
+                }
                 STARTED -> {
-                    translateAnimation.visibility = View.VISIBLE
-                    translateAnimation.playAnimation()
+                    binding.translateAnimation.visibility = View.VISIBLE
+                    binding.translateAnimation.playAnimation()
                 }
                 FINISHED -> {
-                    textTranslated.visibility = View.VISIBLE
-                    animateView(textTranslated, R.anim.fade_in)
+                    binding.textTranslated.visibility = View.VISIBLE
+                    animateView(binding.textTranslated, R.anim.fade_in)
                 }
                 ERROR -> {
                     // show snack bar with error
@@ -135,7 +132,8 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.ic_words_list) {
             findNavController().navigate(
-                TranslateWordFragmentDirections.actionFragmentWordsList())
+                TranslateWordFragmentDirections.actionFragmentWordsList()
+            )
         }
         return true
     }

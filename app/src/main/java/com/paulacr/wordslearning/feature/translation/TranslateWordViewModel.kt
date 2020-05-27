@@ -18,6 +18,7 @@ enum class TranslationState {
     DISABLED,
     STARTED,
     FINISHED,
+    CLEARED,
     ERROR
 }
 
@@ -46,7 +47,7 @@ class TranslateWordViewModel(
     }
 
     fun onTranslate(text: String?) {
-        translation.postValue(STARTED)
+        postValue(STARTED)
         translateRepository.translateWord(
             fromLanguage,
             toLanguage,
@@ -55,7 +56,7 @@ class TranslateWordViewModel(
     }
 
     private fun translateResult(): Consumer<String> = Consumer {
-        translation.postValue(FINISHED)
+        postValue(FINISHED)
         textTranslated.set(it)
     }
 
@@ -65,16 +66,25 @@ class TranslateWordViewModel(
         before: Int,
         count: Int
     ) {
-        if (s.isNotEmpty()) translation.postValue(ENABLED)
-        else translation.postValue(DISABLED)
+        if (s.isNotEmpty()) postValue(ENABLED)
+        else postValue(DISABLED)
+    }
+
+    fun onClearTextClicked() {
+        postValue(DISABLED)
     }
 
     private fun translationError() = Consumer<Throwable> {
-        translation.postValue(ERROR)
+        postValue(ERROR)
     }
 
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()
+    }
+
+    private fun postValue(state: TranslationState) {
+        if (translation.value == state) return
+        else translation.postValue(state)
     }
 }

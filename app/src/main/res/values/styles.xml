@@ -31,7 +31,7 @@
     </style>
 
     <style name="TranslateWordEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:background">@drawable/edit_text_shape</item>
