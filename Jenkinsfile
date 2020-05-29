@@ -1,8 +1,13 @@
-@Library('jenkins_library@master')
+@Library('jenkins_library@v0.1.3')
 import com.pratclot.*
 
 slack = new Slack(this).startThread()
 extendedSteps = new ExtendedSteps(this)
+
+GITHUB_TOKEN_ID = "github_token"
+GOOGLE_SERVICE_CREDENTIALS_ID = "google_service_account_firebase_admin"
+GOOGLE_PROJECT_VAR_ID = "firebase_project_id"
+GOOGLE_SERVICES_FILE_VAR_ID = "google_services.json"
 
 pipeline {
     agent any
@@ -21,16 +26,25 @@ pipeline {
             steps {
                 script {
                     extendedSteps """
-                        ./gradlew clean buildDebugPreBundle
+                        ./gradlew clean compileDebugSources
                     """
                 }
             }
         }
-        stage('Tests') {
+        stage('Unit Tests') {
             steps {
                 script {
                     extendedSteps """
                         ./gradlew testDebugUnitTest
+                    """
+                }
+            }
+        }
+        stage('UI Tests') {
+            steps {
+                script {
+                    extendedSteps """
+                        ./gradlew firebaseTestLabExecuteDebugInstrumentationPixel2Debug
                     """
                 }
             }
