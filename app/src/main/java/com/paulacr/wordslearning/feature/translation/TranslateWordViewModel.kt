@@ -71,8 +71,8 @@ class TranslateWordViewModel(
         textTranslated.set(it)
     }
 
-    private fun onDownloadCompleted() : Consumer<Unit> = Consumer {
-        //do something
+    private fun onDownloadCompleted(): Consumer<Unit> = Consumer {
+        // do something
         postValue(ON_DOWNLOADING_LANGUAGES_FINISHED)
         Log.i("Log download languages", "completed")
     }
