@@ -40,15 +40,15 @@ pipeline {
                 }
             }
         }
-        stage('UI Tests') {
-            steps {
-                script {
-                    extendedSteps """
-                        ./gradlew firebaseTestLabExecuteDebugInstrumentationPixel2Debug
-                    """
-                }
-            }
-        }
+//        stage('UI Tests') {
+//            steps {
+//                script {
+//                    extendedSteps """
+//                        ./gradlew firebaseTestLabExecuteDebugInstrumentationPixel2Debug
+//                    """
+//                }
+//            }
+//        }
     }
 
     post {
