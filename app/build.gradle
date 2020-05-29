@@ -95,6 +95,10 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.loggingIntercept"
 
+    // DATABASE
+    implementation "androidx.room:room-runtime:$versions.room"
+    annotationProcessor "androidx.room:room-compiler:$versions.room"
+
     // DEPENDENCY INJECTION
     implementation "org.koin:koin-core:$versions.koin"
     implementation "org.koin:koin-androidx-scope:$versions.koin"
