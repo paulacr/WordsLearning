@@ -67,12 +67,10 @@ class LanguageSelectorView @JvmOverloads constructor(
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        view?.let {
-            if (it.id == R.id.fromLanguage) {
-                onLanguageSelected?.onFromLanguageSelected(languages[position])
-            } else {
-                onLanguageSelected?.onToLanguageSelected(languages[position])
-            }
+        if (parent?.id == R.id.fromLanguage) {
+            onLanguageSelected?.onFromLanguageSelected(languages[position])
+        } else {
+            onLanguageSelected?.onToLanguageSelected(languages[position])
         }
     }
 }

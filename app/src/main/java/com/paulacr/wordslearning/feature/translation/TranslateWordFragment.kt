@@ -17,14 +17,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.crashlytics.android.Crashlytics
 import com.devs.vectorchildfinder.VectorChildFinder
+import com.google.android.material.snackbar.Snackbar
 import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.databinding.FragmentTranslateWordBinding
-import com.paulacr.wordslearning.feature.translation.TranslationState.DISABLED
-import com.paulacr.wordslearning.feature.translation.TranslationState.ENABLED
-import com.paulacr.wordslearning.feature.translation.TranslationState.ERROR
-import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
-import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
+import com.paulacr.wordslearning.feature.translation.TranslationState.*
 import com.paulacr.wordslearning.ui.LanguageSelectorView
 import com.paulacr.wordslearning.ui.OnLanguageSelected
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -86,8 +83,16 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
     }
 
     private fun setupObservers() {
+        val downloadSnackBar = Snackbar.make(binding.root, "Downloading Languages", Snackbar.LENGTH_INDEFINITE)
         translationObserver = Observer<TranslationState> {
             when (it) {
+                ON_DOWNLOADING_LANGUAGES_STARTED -> {
+                    downloadSnackBar.show()
+                }
+
+                ON_DOWNLOADING_LANGUAGES_FINISHED -> {
+                    downloadSnackBar.dismiss()
+                }
                 ENABLED -> {
                     enableTranslateButton()
                     binding.clearTextButton.visibility = View.VISIBLE

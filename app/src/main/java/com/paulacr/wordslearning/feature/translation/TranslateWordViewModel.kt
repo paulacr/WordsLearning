@@ -1,5 +1,6 @@
 package com.paulacr.wordslearning.feature.translation
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,16 +10,19 @@ import com.paulacr.wordslearning.feature.translation.TranslationState.DISABLED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ENABLED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ERROR
 import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ON_DOWNLOADING_LANGUAGES_FINISHED
+import com.paulacr.wordslearning.feature.translation.TranslationState.ON_DOWNLOADING_LANGUAGES_STARTED
 import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Consumer
 
 enum class TranslationState {
+    ON_DOWNLOADING_LANGUAGES_STARTED,
+    ON_DOWNLOADING_LANGUAGES_FINISHED,
     ENABLED,
     DISABLED,
     STARTED,
     FINISHED,
-    CLEARED,
     ERROR
 }
 
@@ -29,7 +33,7 @@ class TranslateWordViewModel(
 
     val translation: MutableLiveData<TranslationState> = MutableLiveData()
     var fromLanguage: Language = Language.ENGLISH
-    var toLanguage: Language = Language.ENGLISH
+    var toLanguage: Language = Language.RUSSIAN
 
     var textTranslated = ObservableField("")
 
@@ -41,7 +45,14 @@ class TranslateWordViewModel(
         compositeDisposable.add(
             translateRepository.subscribeToTranslator(
                 translateResult(),
-                translationError()
+                onError()
+            )
+        )
+
+        postValue(ON_DOWNLOADING_LANGUAGES_STARTED)
+        compositeDisposable.add(
+            translateRepository.subscribeToDownloadLanguages(onDownloadCompleted(),
+                onError()
             )
         )
     }
@@ -60,6 +71,12 @@ class TranslateWordViewModel(
         textTranslated.set(it)
     }
 
+    private fun onDownloadCompleted() : Consumer<Unit> = Consumer {
+        //do something
+        postValue(ON_DOWNLOADING_LANGUAGES_FINISHED)
+        Log.i("Log download languages", "completed")
+    }
+
     fun onTranslateWordTextChanged(
         s: CharSequence,
         start: Int,
@@ -74,7 +91,7 @@ class TranslateWordViewModel(
         postValue(DISABLED)
     }
 
-    private fun translationError() = Consumer<Throwable> {
+    private fun onError() = Consumer<Throwable> {
         postValue(ERROR)
     }
 

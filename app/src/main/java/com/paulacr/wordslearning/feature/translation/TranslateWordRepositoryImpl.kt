@@ -3,13 +3,17 @@ package com.paulacr.wordslearning.feature.translation
 import android.util.Log
 import com.paulacr.wordslearning.data.Language
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.CompletableObserver
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class TranslateWordRepositoryImpl : TranslateWordRepository {
-    var translateSubject: PublishSubject<String> = PublishSubject.create()
+    private var translateSubject: PublishSubject<String> = PublishSubject.create()
+    private var downloadLanguages: PublishSubject<Unit> = PublishSubject.create()
 
     override fun subscribeToTranslator(
         result: Consumer<in String>,
@@ -20,22 +24,40 @@ class TranslateWordRepositoryImpl : TranslateWordRepository {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(result, error)
 
-    override fun translateWord(from: Language, to: Language, word: String) {
-        getTranslator(from, to).downloadModelIfNeeded()
-            .addOnSuccessListener { downloadModelSuccessful ->
-
-                Log.i("translator", "success listener: $downloadModelSuccessful")
-                getTranslator(from, to).translate(word)
-                    .addOnSuccessListener { translatedWord ->
-                        translateSubject.onNext(translatedWord)
-                    }
-                    .addOnFailureListener {
-                        translateSubject.onError(it)
-                    }
+    override fun subscribeToDownloadLanguages(
+        result: Consumer<in Unit>,
+        error: Consumer<in Throwable>
+    ): Disposable =
+        downloadLanguages
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                downloadDefaultLanguages()
             }
+            .subscribe(result, error)
 
+    override fun translateWord(from: Language, to: Language, word: String) {
+        getTranslator(from, to).translate(word)
+            .addOnSuccessListener { translatedWord ->
+                translateSubject.onNext(translatedWord)
+            }
             .addOnFailureListener {
                 translateSubject.onError(it)
+            }
+    }
+
+    override fun downloadDefaultLanguages() {
+        val languageList = listOf(Language.ENGLISH, Language.PORTUGUESE, Language.RUSSIAN)
+
+        getTranslator(languageList[0], languageList[1]).downloadModelIfNeeded()
+            .addOnSuccessListener {
+                getTranslator(languageList[1], languageList[2]).downloadModelIfNeeded()
+                    .addOnSuccessListener {
+                        getTranslator(languageList[2], languageList[0]).downloadModelIfNeeded()
+                            .addOnSuccessListener {
+                                downloadLanguages.onNext(Unit)
+                            }
+                    }
             }
     }
 }
