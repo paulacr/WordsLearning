@@ -1,3 +1,0 @@
-package com.paulacr.wordslearning.feature.translation
-
-interface TranslateWordDataSource
