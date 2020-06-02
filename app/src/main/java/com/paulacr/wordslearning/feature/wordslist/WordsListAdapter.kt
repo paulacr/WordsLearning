@@ -10,6 +10,7 @@ import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.ImageWord
 import com.paulacr.wordslearning.data.TextWord
 import com.paulacr.wordslearning.data.WordItem
+import com.paulacr.wordslearning.data.WordItemType
 
 private const val TEXT_WORD_TYPE = 0
 private const val IMAGE_WORD_TYPE = 1
@@ -18,7 +19,7 @@ class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Ada
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         return when (viewType) {
-            TEXT_WORD_TYPE -> {
+            WordItemType.TEXT_WORD_TYPE.value -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.text_word_item, parent, false)
                 TextWordViewHolder(view)
@@ -44,11 +45,12 @@ class WordsListAdapter(private val listItems: List<WordItem>) : RecyclerView.Ada
 
     override fun getItemViewType(position: Int): Int {
         val comparable = listItems[position]
-        return when (comparable) {
-            is TextWord -> TEXT_WORD_TYPE
-            is ImageWord -> IMAGE_WORD_TYPE
-            else -> throw IllegalArgumentException("Invalid type at $position")
-        }
+        return comparable.type.value
+//        return when (comparable.type) {
+//            WordItemType.TEXT_WORD_TYPE -> TEXT_WORD_TYPE
+//            WordItemType.IMAGE_WORD_TYPE -> IMAGE_WORD_TYPE
+//            else -> throw IllegalArgumentException("Invalid type at $position")
+//        }
     }
 
     inner class TextWordViewHolder(itemView: View) : BaseViewHolder<TextWord>(itemView) {

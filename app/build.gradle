@@ -48,6 +48,11 @@ android {
         ktlint
     }
 
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }
+
     task ktlint(type: JavaExec, group: "verification") {
         description = "Check Kotlin code style."
         classpath = configurations.ktlint
@@ -87,8 +92,8 @@ dependencies {
     ktlint "com.pinterest:ktlint:$versions.ktLint"
 
     // NETWORKING
-    implementation "io.reactivex.rxjava3:rxandroid:$versions.rxjava"
-    implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$versions.rxJavaAdapter"
     implementation "com.squareup.retrofit2:converter-gson:$versions.gsonConverter"
     implementation "com.google.code.gson:gson:$versions.gson"
@@ -97,7 +102,9 @@ dependencies {
 
     // DATABASE
     implementation "androidx.room:room-runtime:$versions.room"
-    annotationProcessor "androidx.room:room-compiler:$versions.room"
+//    annotationProcessor "androidx.room:room-compiler:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.roomCompiler"
+    implementation "com.facebook.stetho:stetho:$versions.stetho"
 
     // DEPENDENCY INJECTION
     implementation "org.koin:koin-core:$versions.koin"

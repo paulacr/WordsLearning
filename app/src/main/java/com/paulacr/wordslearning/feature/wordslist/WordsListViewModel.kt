@@ -2,4 +2,8 @@ package com.paulacr.wordslearning.feature.wordslist
 
 import androidx.lifecycle.ViewModel
 
-class WordsListViewModel : ViewModel()
+class WordsListViewModel : ViewModel() {
+
+    fun saveTextWordItem() {
+    }
+}

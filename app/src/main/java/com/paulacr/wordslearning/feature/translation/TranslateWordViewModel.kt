@@ -13,8 +13,9 @@ import com.paulacr.wordslearning.feature.translation.TranslationState.FINISHED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ON_DOWNLOADING_LANGUAGES_FINISHED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ON_DOWNLOADING_LANGUAGES_STARTED
 import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.functions.Consumer
+import com.paulacr.wordslearning.feature.wordslist.WordsListRepository
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.Consumer
 
 enum class TranslationState {
     ON_DOWNLOADING_LANGUAGES_STARTED,
@@ -28,6 +29,7 @@ enum class TranslationState {
 
 class TranslateWordViewModel(
     private val translateRepository: TranslateWordRepository,
+    private val wordsListRepository: WordsListRepository,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) : ViewModel() {
 
@@ -43,17 +45,13 @@ class TranslateWordViewModel(
 
     private fun subscribeTranslator() {
         compositeDisposable.add(
-            translateRepository.subscribeToTranslator(
-                translateResult(),
-                onError()
-            )
+            translateRepository.subscribeToTranslator().subscribe(translateResult(), onError())
         )
 
         postValue(ON_DOWNLOADING_LANGUAGES_STARTED)
         compositeDisposable.add(
-            translateRepository.subscribeToDownloadLanguages(onDownloadCompleted(),
-                onError()
-            )
+            translateRepository.subscribeToDownloadLanguages()
+                .subscribe(onDownloadCompleted(), onError())
         )
     }
 
@@ -89,6 +87,12 @@ class TranslateWordViewModel(
 
     fun onClearTextClicked() {
         postValue(DISABLED)
+    }
+
+    fun onSaveWord(word: String) {
+//        compositeDisposable.add(
+//            wordsListRepository.addTextWord(word).subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe())
     }
 
     private fun onError() = Consumer<Throwable> {

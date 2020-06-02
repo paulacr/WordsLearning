@@ -50,7 +50,7 @@ task clean(type: Delete) {
 }
 
 ext.versions = [
-        rxjava           : '3.0.0',
+        rxjava           : '2.0.1',
         rxJavaAdapter    : '3.0.0',
         okHttp           : '3.10.0',
         appCompat        : '1.1.0',
@@ -69,7 +69,9 @@ ext.versions = [
         firebaseNatLang  : '22.0.0',
         firebaseNatModel : '20.0.8',
         navigation       : '2.3.0-alpha01',
-        room             : '2.2.5'
+        room             : '2.2.5',
+        roomCompiler     : '2.2.5',
+        stetho           : '1.5.1'
 ]
 
 ext.appConfig = [
