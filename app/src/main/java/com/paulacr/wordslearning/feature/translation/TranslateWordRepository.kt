@@ -7,7 +7,11 @@ interface TranslateWordRepository {
 
     fun subscribeToTranslator(): Observable<String>
 
-    fun subscribeToDownloadLanguages(): Observable<Unit>
+    fun subscribeToDownloadLanguages(): Observable<Pair<Language, Language>>
 
     fun translateWord(from: Language, to: Language, word: String)
+
+    fun hasDownloadedLanguages(): Boolean
+
+    fun downloadLanguage(from: Language, to: Language)
 }

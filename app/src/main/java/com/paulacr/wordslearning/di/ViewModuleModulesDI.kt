@@ -5,6 +5,6 @@ import com.paulacr.wordslearning.feature.wordslist.WordsListViewModel
 import org.koin.dsl.module
 
 val translateWordViewModelModule = module {
-    single { TranslateWordViewModel(translateRepository = get(), wordsListRepository = get()) }
+    single { TranslateWordViewModel(translateRepository = get(), wordsListRepository = get(), app = get()) }
     single { WordsListViewModel() }
 }

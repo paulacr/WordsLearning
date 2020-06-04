@@ -88,14 +88,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/saveWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:clickable="true"
+            android:background="@drawable/save_word_button_bg"
             android:text="save"
             android:onClick="@{() -> viewModel.onSaveWord(wordFieldEditText.getText().toString())}"
             app:layout_constraintTop_toBottomOf="@id/textTranslated"
-            app:layout_constraintStart_toStartOf="@id/textTranslated"/>
+            app:layout_constraintStart_toStartOf="@id/textTranslated"
+            android:contentDescription="@string/accessibility_save_word_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

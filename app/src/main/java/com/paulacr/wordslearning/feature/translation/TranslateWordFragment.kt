@@ -111,7 +111,9 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
 
                     if (binding.textTranslated.visibility == View.VISIBLE) {
                         animateView(binding.textTranslated, R.anim.fade_out)
+                        animateView(binding.saveWord, R.anim.fade_out)
                         binding.textTranslated.visibility = View.INVISIBLE
+                        binding.saveWord.visibility = View.INVISIBLE
                     }
                 }
                 STARTED -> {
@@ -120,7 +122,9 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
                 }
                 FINISHED -> {
                     binding.textTranslated.visibility = View.VISIBLE
+                    binding.saveWord.visibility = View.VISIBLE
                     animateView(binding.textTranslated, R.anim.fade_in)
+                    animateView(binding.saveWord, R.anim.fade_in)
                 }
                 ERROR -> {
                     // show snack bar with error

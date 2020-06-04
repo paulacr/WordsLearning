@@ -18,7 +18,7 @@ val translateWordDataSourceModule = module {
     } bind RemoteTranslateWordDataSource::class
 
     single {
-        TranslateWordRepositoryImpl(get())
+        TranslateWordRepositoryImpl(get(), get())
     } bind TranslateWordRepository::class
 
     single {

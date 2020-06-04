@@ -6,9 +6,9 @@ import io.reactivex.Observable
 interface RemoteTranslateWordDataSource {
     fun subscribeToTranslator(): Observable<String>
 
-    fun subscribeToDownloadLanguages(): Observable<Unit>
+    fun subscribeToDownloadLanguages(): Observable<Pair<Language, Language>>
 
     fun translateWord(from: Language, to: Language, word: String)
 
-    fun downloadDefaultLanguages()
+    fun downloadLanguage(from: Language, to: Language)
 }

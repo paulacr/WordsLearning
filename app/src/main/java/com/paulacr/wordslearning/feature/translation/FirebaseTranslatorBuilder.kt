@@ -1,5 +1,6 @@
 package com.paulacr.wordslearning.feature.translation
 
+import com.google.firebase.ml.common.modeldownload.FirebaseModelManager
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
@@ -22,3 +23,5 @@ fun getTranslator(from: Language, to: Language): FirebaseTranslator {
     }
     return translator
 }
+
+var firebaseModelManager = FirebaseModelManager.getInstance()

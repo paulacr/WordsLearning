@@ -85,6 +85,7 @@ dependencies {
     implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "de.hdodenhof:circleimageview:$versions.circularImage"
 
     // KOTLIN
     implementation "androidx.core:core-ktx:$versions.coreKtx"
