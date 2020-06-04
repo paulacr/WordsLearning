@@ -25,5 +25,5 @@ internal val commonDependencies = module {
 
     single { get<AppDataBase>().imageWordDao() }
 
-    single { DownloadLanguageSharedPrefs(get())}
+    single { DownloadLanguageSharedPrefs(get()) }
 }
