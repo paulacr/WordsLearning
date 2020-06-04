@@ -6,18 +6,18 @@ import io.reactivex.Observable
 
 class TranslateWordRepositoryImpl(
     private val remoteDataSource: RemoteTranslateWordDataSource,
+    private val localDataSource: LocalTranslateWordDataSource,
     private val downloadLanguageSharedPrefs: DownloadLanguageSharedPrefs
 ) :
     TranslateWordRepository {
-    override fun subscribeToTranslator(): Observable<String> =
-        remoteDataSource.subscribeToTranslator()
+    override fun getTranslateSubject(): Observable<String> =
+        localDataSource.getTranslateSubject()
 
-    override fun subscribeToDownloadLanguages(): Observable<Pair<Language, Language>> {
-        return remoteDataSource.subscribeToDownloadLanguages()
-    }
+    override fun getDownloadSubject(): Observable<Pair<Language, Language>> =
+        remoteDataSource.getDownloadSubject()
 
     override fun translateWord(from: Language, to: Language, word: String) =
-        remoteDataSource.translateWord(from, to, word)
+        localDataSource.translateWord(from, to, word)
 
     override fun hasDownloadedLanguages(): Boolean =
         downloadLanguageSharedPrefs.hasDownloadedLanguages() ?: false

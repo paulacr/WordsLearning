@@ -51,9 +51,9 @@ class WordsListFragment : Fragment() {
         ContextCompat.getDrawable(context, R.drawable.grid_divider)
 
     private val mockedTextData = arrayOf(
-        TextWord("first name", "first pronunciation", "translation 1"),
-        TextWord("second name", "second pronunciation", "translation 2"),
-        TextWord("third name", "third pronunciation", "translation 3")
+        TextWord("first name", "translation 1"),
+        TextWord("second name", "translation 2"),
+        TextWord("third name", "translation 3")
     )
 
     private val mockedImageData = arrayOf(

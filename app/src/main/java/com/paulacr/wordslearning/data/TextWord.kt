@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "text_word")
 data class TextWord(
     val name: String,
-    val pronunciation: String?,
     val translation: String,
     override var type: WordItemType = WordItemType.TEXT_WORD_TYPE
 ) : WordItem() {

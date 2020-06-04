@@ -1,5 +1,7 @@
 package com.paulacr.wordslearning.di
 
+import com.paulacr.wordslearning.feature.translation.LocalTranslateWordDataSource
+import com.paulacr.wordslearning.feature.translation.LocalTranslateWordDataSourceImpl
 import com.paulacr.wordslearning.feature.translation.RemoteTranslateWordDataSource
 import com.paulacr.wordslearning.feature.translation.TranslateWordApi
 import com.paulacr.wordslearning.feature.translation.TranslateWordRepository
@@ -18,7 +20,11 @@ val translateWordDataSourceModule = module {
     } bind RemoteTranslateWordDataSource::class
 
     single {
-        TranslateWordRepositoryImpl(get(), get())
+        LocalTranslateWordDataSourceImpl()
+    } bind LocalTranslateWordDataSource::class
+
+    single {
+        TranslateWordRepositoryImpl(get(), get(), get())
     } bind TranslateWordRepository::class
 
     single {

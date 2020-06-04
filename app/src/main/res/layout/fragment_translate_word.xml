@@ -98,7 +98,7 @@
             android:clickable="true"
             android:background="@drawable/save_word_button_bg"
             android:text="save"
-            android:onClick="@{() -> viewModel.onSaveWord(wordFieldEditText.getText().toString())}"
+            android:onClick="@{() -> viewModel.onSaveWord(wordFieldEditText.getText().toString(), textTranslated.getText().toString())}"
             app:layout_constraintTop_toBottomOf="@id/textTranslated"
             app:layout_constraintStart_toStartOf="@id/textTranslated"
             android:contentDescription="@string/accessibility_save_word_button" />
