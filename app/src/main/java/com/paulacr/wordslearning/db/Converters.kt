@@ -1,6 +1,7 @@
 package com.paulacr.wordslearning.db
 
 import androidx.room.TypeConverter
+import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.data.WordItemType
 
 class Converters {
@@ -9,6 +10,12 @@ class Converters {
 
     @TypeConverter
     fun toWordItem(value: Int) = value.toEnum<WordItemType>()
+
+    @TypeConverter
+    fun toLanguageEnum(value: String) = enumValueOf<Language>(value)
+
+    @TypeConverter
+    fun fromLanguageEnum(value: Language) = value.name
 }
 
 private inline fun <T : Enum<T>> T.toInt(): Int = this.ordinal

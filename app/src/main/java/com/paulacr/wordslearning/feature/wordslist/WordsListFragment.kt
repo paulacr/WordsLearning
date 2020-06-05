@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.dgreenhalgh.android.simpleitemdecoration.grid.GridDividerItemDecoration
 import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.ImageWord
+import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.data.TextWord
 import com.paulacr.wordslearning.data.buildWordItems
 import com.paulacr.wordslearning.databinding.FragmentWordsListBinding
@@ -51,14 +52,14 @@ class WordsListFragment : Fragment() {
         ContextCompat.getDrawable(context, R.drawable.grid_divider)
 
     private val mockedTextData = arrayOf(
-        TextWord("first name", "translation 1"),
-        TextWord("second name", "translation 2"),
-        TextWord("third name", "translation 3")
+        TextWord("first name", "translation 1", Language.PORTUGUESE, Language.RUSSIAN),
+        TextWord("second name", "translation 2", Language.PORTUGUESE, Language.RUSSIAN),
+        TextWord("third name", "translation 3", Language.PORTUGUESE, Language.RUSSIAN)
     )
 
     private val mockedImageData = arrayOf(
-        ImageWord(0, R.drawable.ic_tick, "xxx", "yyyy"),
-        ImageWord(1, android.R.mipmap.sym_def_app_icon, "xxx", "yyyy"),
-        ImageWord(2, R.drawable.ic_tick, "xxx", "yyyy")
+        ImageWord(0, R.drawable.ic_tick, "xxx", Language.PORTUGUESE, Language.RUSSIAN),
+        ImageWord(1, android.R.mipmap.sym_def_app_icon, "yyyy", Language.PORTUGUESE, Language.RUSSIAN),
+        ImageWord(2, R.drawable.ic_tick, "xxx", Language.PORTUGUESE, Language.RUSSIAN)
     )
 }

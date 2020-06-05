@@ -8,6 +8,7 @@ data class ImageWord(
     @PrimaryKey val id: Int,
     val imageRes: Int,
     val name: String,
-    val pronunciation: String?,
+    override var fromLanguage: Language,
+    override var toLanguage: Language,
     override var type: WordItemType = WordItemType.IMAGE_WORD_TYPE
 ) : WordItem()

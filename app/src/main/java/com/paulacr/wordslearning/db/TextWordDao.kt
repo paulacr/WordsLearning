@@ -9,9 +9,9 @@ import io.reactivex.Completable
 @Dao
 interface TextWordDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg textWord: TextWord)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insert(textWord: TextWord): Completable
 }

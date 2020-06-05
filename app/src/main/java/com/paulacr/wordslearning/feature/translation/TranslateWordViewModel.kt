@@ -121,7 +121,15 @@ class TranslateWordViewModel(
 
     fun onSaveWord(word: String, translation: String) {
         compositeDisposable.add(
-            wordsListRepository.addTextWord(TextWord(word, translation)).subscribe()
+            wordsListRepository.addTextWord(TextWord(word, translation, fromLanguage, toLanguage))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe {
+                    Log.i("Save word", "started")
+                }
+                .doOnComplete {
+                    Log.i("Save word", "completed")
+                }.subscribe()
         )
     }
 

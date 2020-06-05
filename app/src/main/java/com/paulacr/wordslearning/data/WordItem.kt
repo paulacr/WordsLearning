@@ -10,6 +10,8 @@ enum class WordItemType(val value: Int) {
 abstract class WordItem {
 
     abstract var type: WordItemType
+    abstract var fromLanguage: Language
+    abstract var toLanguage: Language
 }
 
 private var listItems = mutableListOf<WordItem>()

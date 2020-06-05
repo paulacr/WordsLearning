@@ -14,7 +14,7 @@ class WordsLearningApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initializeStetho()
+        Stetho.initializeWithDefaults(this)
         startKoin {
             androidContext(this@WordsLearningApp)
             modules(
@@ -27,12 +27,5 @@ class WordsLearningApp : Application() {
                 )
             )
         }
-    }
-
-    private fun initializeStetho() {
-        val initializerBuilder = Stetho.newInitializerBuilder(this)
-        initializerBuilder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-        val initializer = initializerBuilder.build()
-        Stetho.initialize(initializer)
     }
 }
