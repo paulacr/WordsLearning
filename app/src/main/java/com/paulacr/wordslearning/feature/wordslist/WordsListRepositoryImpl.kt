@@ -1,6 +1,7 @@
 package com.paulacr.wordslearning.feature.wordslist
 
 import com.paulacr.wordslearning.data.TextWord
+import io.reactivex.Single
 
 class WordsListRepositoryImpl(private val localDataSource: LocalWordListDataSource) : WordsListRepository {
 
@@ -18,4 +19,6 @@ class WordsListRepositoryImpl(private val localDataSource: LocalWordListDataSour
     override fun moveToCategory() {
         TODO("Not yet implemented")
     }
+
+    override fun getWordListItems(): Single<List<TextWord>> = localDataSource.getWordListItems()
 }
