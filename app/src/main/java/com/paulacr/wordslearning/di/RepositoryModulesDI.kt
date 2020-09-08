@@ -32,7 +32,7 @@ val translateWordDataSourceModule = module {
     } bind WordsListRepository::class
 
     single {
-        LocalWordListDataSourceImpl(get(), get())
+        LocalWordListDataSourceImpl(get())
     } bind LocalWordListDataSource::class
 }
 

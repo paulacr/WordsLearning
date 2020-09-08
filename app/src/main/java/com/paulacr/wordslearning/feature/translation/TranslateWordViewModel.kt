@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.ml.common.modeldownload.FirebaseModelManager
+import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateRemoteModel
 import com.paulacr.wordslearning.common.Exceptions
 import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.data.Language.ENGLISH
@@ -120,21 +122,33 @@ class TranslateWordViewModel(
     }
 
     fun onSaveWord(word: String, translation: String) {
-        compositeDisposable.add(
-            wordsListRepository.addTextWord(TextWord(word, translation, fromLanguage, toLanguage))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe {
-                    Log.i("Save word", "started")
-                }
-                .doOnComplete {
-                    Log.i("Save word", "completed")
-                }.subscribe()
-        )
+        getSavedModels()
+//        compositeDisposable.add(
+//            wordsListRepository.addTextWord(TextWord(word, translation, fromLanguage, toLanguage))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnSubscribe {
+//                    Log.i("Save word", "started")
+//                }
+//                .doOnComplete {
+//                    Log.i("Save word", "completed")
+//                }.subscribe()
+//        )
     }
 
     private fun onError() = Consumer<Throwable> {
         postValue(ERROR)
+    }
+
+    private fun getSavedModels() {
+        val modelManager = FirebaseModelManager.getInstance()
+        modelManager.getDownloadedModels(FirebaseTranslateRemoteModel::class.java)
+            .addOnSuccessListener { models ->
+                Log.i("Log model", "size -> $models.size")
+            }
+            .addOnFailureListener {
+                Log.i("Log model", "error -> $it")
+            }
     }
 
     override fun onCleared() {

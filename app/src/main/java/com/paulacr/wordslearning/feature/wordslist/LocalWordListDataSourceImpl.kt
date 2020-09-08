@@ -7,8 +7,7 @@ import com.paulacr.wordslearning.di.wordListDataSourceModule
 import io.reactivex.Single
 
 class LocalWordListDataSourceImpl(
-    private val textWordDao: TextWordDao,
-    val imageWordDao: ImageWordDao
+    private val textWordDao: TextWordDao
 ) : LocalWordListDataSource {
     override fun addTextWord(word: TextWord) = textWordDao.insert(word)
 

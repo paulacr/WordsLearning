@@ -28,5 +28,4 @@ class WordsListViewModel(private val repository: WordsListRepository) : ViewMode
             }, {
                 exception.postValue(it)
             })
-
 }

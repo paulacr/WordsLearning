@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dgreenhalgh.android.simpleitemdecoration.grid.GridDividerItemDecoration
 import com.paulacr.wordslearning.R
@@ -22,6 +23,8 @@ class WordsListFragment : Fragment() {
 
     private val viewModel by viewModel<WordsListViewModel>()
     private lateinit var binding: FragmentWordsListBinding
+    private lateinit var wordItems: List<TextWord>
+    private lateinit var observerWordItems: Observer<List<TextWord>>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,14 +39,25 @@ class WordsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupWordsList()
+        setupObservers()
+        viewModel.getTextWordItems()
     }
 
-    private fun setupWordsList() {
+    private fun setupObservers() {
+        observerWordItems = Observer<List<TextWord>> {
+            setupWordsList(it)
+        }
+        viewModel.wordListItems.observe(viewLifecycleOwner, observerWordItems)
+    }
+
+    private fun setupWordsList(textWordItems: List<TextWord>) {
+        binding.loadingList.visibility = View.GONE
+        binding.wordsList.visibility = View.VISIBLE
         binding.wordsList.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 2)
-            adapter = WordsListAdapter(buildWordItems(mockedTextData, mockedImageData))
+//            adapter = WordsListAdapter(buildWordItems(mockedTextData, mockedImageData))
+            adapter = WordsListAdapter(buildWordItems(textWordItems.toTypedArray(), mockedImageData))
             addItemDecoration(GridDividerItemDecoration(getDivider(context), getDivider(context), 2))
         }
     }

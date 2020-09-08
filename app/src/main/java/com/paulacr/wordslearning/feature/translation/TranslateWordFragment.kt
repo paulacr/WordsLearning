@@ -60,6 +60,12 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
         languageSelectorView.setListener(this)
     }
 
+    fun testFunc() {
+        //
+        // [1 ,2 , 3, x, 5, 6, 7]
+
+    }
+
     override fun onDestroy() {
         languageSelectorView.setListener(null)
         super.onDestroy()

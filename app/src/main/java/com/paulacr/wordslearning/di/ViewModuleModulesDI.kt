@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val translateWordViewModelModule = module {
     single { TranslateWordViewModel(translateRepository = get(), wordsListRepository = get(), app = get()) }
-    single { WordsListViewModel() }
+    single { WordsListViewModel(get()) }
 }

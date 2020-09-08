@@ -14,6 +14,12 @@ android {
         enabled = true
     }
 
+    javaCompileOptions {
+        annotationProcessorOptions {
+            arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -22,6 +28,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+//    javaCompileOptions {
+//        annotationProcessorOptions {
+//            arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+//        }
+//    }
 
     defaultConfig {
         applicationId "com.paulacr.wordslearning"
@@ -103,8 +115,10 @@ dependencies {
 
     // DATABASE
     implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
 //    annotationProcessor "androidx.room:room-compiler:$versions.room"
-    kapt "androidx.room:room-compiler:$versions.roomCompiler"
+    kapt "androidx.room:room-compiler:$versions.room"
+    testImplementation "androidx.room:room-testing:$versions.room"
     implementation "com.facebook.stetho:stetho:$versions.stetho"
 
     // DEPENDENCY INJECTION
