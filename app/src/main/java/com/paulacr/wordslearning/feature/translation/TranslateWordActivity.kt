@@ -8,7 +8,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.paulacr.wordslearning.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TranslateWordActivity : AppCompatActivity() {
 
     lateinit var appBarConfiguration: AppBarConfiguration
@@ -27,8 +29,8 @@ class TranslateWordActivity : AppCompatActivity() {
         setSupportActionBar(toolbarView)
         toolbarView.setupWithNavController(navController, appBarConfiguration)
 
-        supportFragmentManager.beginTransaction()
-            .add(R.id.nav_host_fragment, TranslateWordFragment()).commit()
+//        supportFragmentManager.beginTransaction()
+//            .add(R.id.nav_host_fragment, TranslateWordFragment()).commit()
 
 //        supportFragmentManager.beginTransaction()
 //            .add(R.id.wordListContainer, WordsListFragment()).commit()

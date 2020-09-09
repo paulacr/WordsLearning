@@ -6,18 +6,17 @@ apply plugin: 'jacoco'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion appConfig.compileVersion
 
-    dataBinding {
+    viewBinding {
         enabled = true
     }
 
-    javaCompileOptions {
-        annotationProcessorOptions {
-            arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-        }
+    dataBinding {
+        enabled = true
     }
 
     compileOptions {
@@ -29,11 +28,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-//    javaCompileOptions {
-//        annotationProcessorOptions {
-//            arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-//        }
-//    }
 
     defaultConfig {
         applicationId "com.paulacr.wordslearning"
@@ -70,9 +64,6 @@ android {
         classpath = configurations.ktlint
         main = "com.pinterest.ktlint.Main"
         args "src/**/*.kt"
-        // to generate report in checkstyle format prepend following args:
-        // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
-        // see https://github.com/pinterest/ktlint#usage for more
     }
     check.dependsOn ktlint
 
@@ -116,12 +107,17 @@ dependencies {
     // DATABASE
     implementation "androidx.room:room-runtime:$versions.room"
     implementation "androidx.room:room-ktx:$versions.room"
-//    annotationProcessor "androidx.room:room-compiler:$versions.room"
+    annotationProcessor "androidx.room:room-compiler:$versions.room"
+    implementation "androidx.room:room-runtime:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
     testImplementation "androidx.room:room-testing:$versions.room"
     implementation "com.facebook.stetho:stetho:$versions.stetho"
 
     // DEPENDENCY INJECTION
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
     implementation "org.koin:koin-core:$versions.koin"
     implementation "org.koin:koin-androidx-scope:$versions.koin"
     implementation "org.koin:koin-androidx-ext:$versions.koin"

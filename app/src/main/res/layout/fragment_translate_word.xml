@@ -19,8 +19,23 @@
         android:layout_height="match_parent"
         tools:context=".feature.translation.TranslateWordFragment">
 
+        <TextView
+            android:id="@+id/word"
+            style="@style/Word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.word}"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/translation"
+            tools:layout_editor_absoluteY="170dp"
+            tools:text="Word"
+            tools:visibility="visible" />
+
         <EditText
-            android:id="@+id/wordFieldEditText"
+            android:id="@+id/translation"
             style="@style/TranslateWordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +43,7 @@
             android:onTextChanged="@{viewModel.onTranslateWordTextChanged}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/languageSelector" />
+            app:layout_constraintTop_toBottomOf="@id/word"/>
 
         <ImageView
             android:id="@+id/clearTextButton"
@@ -40,68 +55,30 @@
             android:onClick="@{() -> viewModel.onClearTextClicked()}"
             android:src="@android:drawable/ic_notification_clear_all"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/wordFieldEditText"
-            app:layout_constraintTop_toTopOf="@id/wordFieldEditText" />
-
-        <TextView
-            android:id="@+id/textTranslated"
-            style="@style/TranslatedText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.textTranslated}"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordFieldEditText"
-            tools:text="Translated text"
-            tools:visibility="visible" />
+            app:layout_constraintEnd_toEndOf="@id/translation"
+            app:layout_constraintTop_toTopOf="@id/translation" />
 
         <ImageView
             android:id="@+id/translateButtonPlaceholder"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:contentDescription="@string/accessibility_translate_button"
-            android:onClick="@{() -> viewModel.onTranslate(wordFieldEditText.getText().toString())}"
             android:src="@drawable/ic_tick"
-            app:layout_constraintBottom_toBottomOf="@id/wordFieldEditText"
+            app:layout_constraintBottom_toBottomOf="@id/translation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordFieldEditText" />
+            app:layout_constraintTop_toBottomOf="@id/translation" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/translateAnimation"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintBottom_toBottomOf="@+id/wordFieldEditText"
+            app:layout_constraintBottom_toBottomOf="@+id/translation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wordFieldEditText"
+            app:layout_constraintTop_toBottomOf="@id/translation"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/success" />
-
-        <com.paulacr.wordslearning.ui.LanguageSelectorView
-            android:id="@+id/languageSelector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/saveWord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:clickable="true"
-            android:background="@drawable/save_word_button_bg"
-            android:text="save"
-            android:onClick="@{() -> viewModel.onSaveWord(wordFieldEditText.getText().toString(), textTranslated.getText().toString())}"
-            app:layout_constraintTop_toBottomOf="@id/textTranslated"
-            app:layout_constraintStart_toStartOf="@id/textTranslated"
-            android:contentDescription="@string/accessibility_save_word_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

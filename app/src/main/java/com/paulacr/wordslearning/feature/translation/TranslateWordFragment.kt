@@ -13,6 +13,7 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.crashlytics.android.Crashlytics
@@ -30,40 +31,42 @@ import com.paulacr.wordslearning.feature.translation.TranslationState.ON_DOWNLOA
 import com.paulacr.wordslearning.feature.translation.TranslationState.STARTED
 import com.paulacr.wordslearning.ui.LanguageSelectorView
 import com.paulacr.wordslearning.ui.OnLanguageSelected
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TranslateWordFragment : Fragment(), OnLanguageSelected {
 
-    private val viewModel by viewModel<TranslateWordViewModel>()
+    private val viewModel by viewModels<TranslateWordViewModel>()
     private lateinit var translationObserver: Observer<TranslationState>
     private lateinit var languageSelectorView: LanguageSelectorView
-    private lateinit var binding: FragmentTranslateWordBinding
+    private lateinit var wordDataBinding: FragmentTranslateWordBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
+        wordDataBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_translate_word, container, false)
-        binding.viewModel = viewModel
+        wordDataBinding.viewModel = viewModel
         setHasOptionsMenu(true)
 
-        return binding.root
+        return wordDataBinding.root
     }
 
     override fun onResume() {
         super.onResume()
         setupObservers()
-        disableTranslateButton()
-        languageSelectorView = binding.languageSelector
-        languageSelectorView.setListener(this)
+//        disableTranslateButton()
+// //        languageSelectorView = wordDataBinding.languageSelector
+//        languageSelectorView.setListener(this)
+
+        viewModel.showWordToTranslate()
     }
 
     fun testFunc() {
         //
         // [1 ,2 , 3, x, 5, 6, 7]
-
     }
 
     override fun onDestroy() {
@@ -73,17 +76,17 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
 
     private fun enableTranslateButton() {
         changeTranslateButtonPlaceHolderColor(R.color.green_light)
-        binding.translateButtonPlaceholder.isEnabled = true
+        wordDataBinding.translateButtonPlaceholder.isEnabled = true
     }
 
     private fun disableTranslateButton() {
         changeTranslateButtonPlaceHolderColor(R.color.gray)
-        binding.translateButtonPlaceholder.isEnabled = false
+        wordDataBinding.translateButtonPlaceholder.isEnabled = false
     }
 
     private fun changeTranslateButtonPlaceHolderColor(@ColorRes color: Int) {
         val vector =
-            VectorChildFinder(context, R.drawable.ic_tick, binding.translateButtonPlaceholder)
+            VectorChildFinder(context, R.drawable.ic_tick, wordDataBinding.translateButtonPlaceholder)
         val path1 = vector.findPathByName("path_1")
         context?.let {
             path1.fillColor = ContextCompat.getColor(it, color)
@@ -95,7 +98,7 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
     }
 
     private fun setupObservers() {
-        val downloadSnackBar = Snackbar.make(binding.root, "Downloading Languages", Snackbar.LENGTH_INDEFINITE)
+        val downloadSnackBar = Snackbar.make(wordDataBinding.root, "Downloading Languages", Snackbar.LENGTH_INDEFINITE)
         translationObserver = Observer<TranslationState> {
             when (it) {
                 ON_DOWNLOADING_LANGUAGES_STARTED -> {
@@ -107,30 +110,30 @@ class TranslateWordFragment : Fragment(), OnLanguageSelected {
                 }
                 ENABLED -> {
                     enableTranslateButton()
-                    binding.clearTextButton.visibility = View.VISIBLE
+                    wordDataBinding.clearTextButton.visibility = View.VISIBLE
                 }
                 DISABLED -> {
                     disableTranslateButton()
-                    binding.wordFieldEditText.text.clear()
-                    binding.clearTextButton.visibility = View.GONE
-                    binding.translateAnimation.visibility = View.GONE
+//                    wordDataBinding.wordFieldEditText.text.clear()
+                    wordDataBinding.clearTextButton.visibility = View.GONE
+                    wordDataBinding.translateAnimation.visibility = View.GONE
 
-                    if (binding.textTranslated.visibility == View.VISIBLE) {
-                        animateView(binding.textTranslated, R.anim.fade_out)
-                        animateView(binding.saveWord, R.anim.fade_out)
-                        binding.textTranslated.visibility = View.INVISIBLE
-                        binding.saveWord.visibility = View.INVISIBLE
-                    }
+//                    if (wordDataBinding.textTranslated.visibility == View.VISIBLE) {
+//                        animateView(binding.textTranslated, R.anim.fade_out)
+//                        animateView(binding.saveWord, R.anim.fade_out)
+//                        binding.textTranslated.visibility = View.INVISIBLE
+//                        binding.saveWord.visibility = View.INVISIBLE
+//                    }
                 }
                 STARTED -> {
-                    binding.translateAnimation.visibility = View.VISIBLE
-                    binding.translateAnimation.playAnimation()
+//                    binding.translateAnimation.visibility = View.VISIBLE
+//                    binding.translateAnimation.playAnimation()
                 }
                 FINISHED -> {
-                    binding.textTranslated.visibility = View.VISIBLE
-                    binding.saveWord.visibility = View.VISIBLE
-                    animateView(binding.textTranslated, R.anim.fade_in)
-                    animateView(binding.saveWord, R.anim.fade_in)
+//                    binding.textTranslated.visibility = View.VISIBLE
+//                    binding.saveWord.visibility = View.VISIBLE
+//                    animateView(binding.textTranslated, R.anim.fade_in)
+//                    animateView(binding.saveWord, R.anim.fade_in)
                 }
                 ERROR -> {
                     // show snack bar with error

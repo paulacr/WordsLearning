@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.paulacr.wordslearning.feature.wordslist.WordsListViewModel" />
+            type="com.paulacr.wordslearning.feature.wordslist.AddWordViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

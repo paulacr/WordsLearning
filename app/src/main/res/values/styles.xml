@@ -36,26 +36,26 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:background">@drawable/edit_text_shape</item>
-        <item name="android:gravity">top</item>
+        <item name="android:gravity">center</item>
         <item name="android:inputType">textMultiLine</item>
-        <item name="android:lines">5</item>
+        <item name="android:lines">3</item>
         <item name="android:paddingStart">6dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingEnd">6dp</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="TranslatedText" parent="Widget.AppCompat.TextView">
-        <item name="android:lines">5</item>
+    <style name="Word" parent="Widget.AppCompat.TextView">
         <item name="android:layout_marginTop">6dp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:background">@drawable/textbox_green_shape</item>
+        <item name="android:textColor">@color/green</item>
         <item name="android:paddingStart">6dp</item>
         <item name="android:paddingTop">20dp</item>
         <item name="android:paddingEnd">6dp</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 
 </resources>
