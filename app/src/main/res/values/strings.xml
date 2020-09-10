@@ -1,3 +1,19 @@
 <resources>
+    <string name="base_url" translatable="false">https://api.cognitive.microsofttranslator.com/</string>
     <string name="app_name">wordslearning</string>
+    <string name="accessibility_reverse_languages">revert languages</string>
+    <string name="word_to_translate_hint">Enter text here</string>
+    <string name="accessibility_translate_button">translate button</string>
+    <string name="words_list">Words List</string>
+    <string name="actionBarTitle">Words Learning</string>
+    <string name="accessibility_clear_text_button">clear text button</string>
+    <string name="accessibility_save_word_button">save word button</string>
+    <string name="translation_result_correct">Parabenzinho!!!</string>
+    <string name="translation_result_error">Ooopss :(</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+    </string-array>
 </resources>

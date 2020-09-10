@@ -8,19 +8,21 @@ buildscript {
     ext.fabric_version = '1.31.2'
     ext.monitoring_version = '1.3.1'
     ext.crashlytics = '2.0.0'
+    ext.hilt_version = '2.28-alpha'
+    ext.hilt_jetpack_version = '1.0.0-alpha02'
 
     repositories {
         maven {
             url 'https://maven.fabric.io/public'
-
         }
 
         //common repositories
         google()
         jcenter()
     }
+
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "com.android.tools.build:gradle:${gradle_version}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$safe_args_version"
@@ -29,6 +31,7 @@ buildscript {
         classpath "io.fabric.tools:gradle:$fabric_version"
         classpath "com.google.firebase:perf-plugin:$monitoring_version"
         classpath "com.google.firebase:firebase-crashlytics-gradle:$crashlytics"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
 }
 
@@ -41,6 +44,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -49,16 +53,29 @@ task clean(type: Delete) {
 }
 
 ext.versions = [
-        rxjava           : '3.0.0',
+        rxjava           : '2.0.1',
+        rxJavaAdapter    : '3.0.0',
         okHttp           : '3.10.0',
         appCompat        : '1.1.0',
         coreKtx          : '1.2.0',
         constraintLayout : '1.1.3',
         fcrashlytics     : '17.0.0',
-        firebase         : '17.4.0',
+        firebase         : '17.4.2',
         crashlytics      : '2.10.1',
         materialDesign   : '28.0.0',
-        koin             : '2.1.5'
+        koin             : '2.1.5',
+        ktLint           : '0.36.0',
+        gson             : '2.8.6',
+        gsonConverter    : '2.4.0',
+        loggingIntercept : '4.2.1',
+        lottie           : '3.2.0',
+        firebaseNatLang  : '22.0.0',
+        firebaseNatModel : '20.0.8',
+        navigation       : '2.3.0-alpha01',
+        room             : '2.2.5',
+        roomCompiler     : '2.2.5',
+        stetho           : '1.5.1',
+        circularImage    : '2.1.0'
 ]
 
 ext.appConfig = [

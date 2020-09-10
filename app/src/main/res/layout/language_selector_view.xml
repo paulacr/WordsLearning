@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clBaseLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLanguageSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLanguageSelector"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/language_selector_shape">
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/fromLanguage"
+                style="@style/DefaultSpinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@id/arrow"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@android:layout/simple_list_item_1" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/accessibility_reverse_languages"
+                android:src="@drawable/ic_arrow"
+                android:tint="@color/dark_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/fromLanguage"
+                app:layout_constraintEnd_toStartOf="@+id/toLanguage"
+                app:layout_constraintStart_toEndOf="@+id/fromLanguage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/toLanguage"
+                style="@style/DefaultSpinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                android:dropDownWidth="wrap_content"
+                android:spinnerMode="dropdown"
+                tools:listitem="@android:layout/simple_list_item_1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

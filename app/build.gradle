@@ -5,9 +5,15 @@ apply plugin: 'io.fabric'
 apply plugin: 'jacoco'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion appConfig.compileVersion
+
+    viewBinding {
+        enabled = true
+    }
 
     dataBinding {
         enabled = true
@@ -18,6 +24,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+
     defaultConfig {
         applicationId "com.paulacr.wordslearning"
         minSdkVersion appConfig.minVersion
@@ -25,16 +36,42 @@ android {
         versionCode VERSION_CODE as int
         versionName VERSION_NAME as String
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
+
 
     buildTypes {
         debug {
-            resValue "string", "fabric_key", "AIzaSyAIkilc6NxZq-9mHPh8qG_R-tVbLd4ALCk"
+            minifyEnabled false
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    configurations {
+        ktlint
+    }
+
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }
+
+    task ktlint(type: JavaExec, group: "verification") {
+        description = "Check Kotlin code style."
+        classpath = configurations.ktlint
+        main = "com.pinterest.ktlint.Main"
+        args "src/**/*.kt"
+    }
+    check.dependsOn ktlint
+
+    task ktlintFormat(type: JavaExec, group: "formatting") {
+        description = "Fix Kotlin code style deviations."
+        classpath = configurations.ktlint
+        main = "com.pinterest.ktlint.Main"
+        args "-F", "src/**/*.kt"
     }
 
 }
@@ -46,17 +83,41 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appCompat"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "com.android.support:design:$versions.materialDesign"
+    implementation "com.google.android.material:material:1.2.0-alpha06"
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
+    implementation 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+    implementation "de.hdodenhof:circleimageview:$versions.circularImage"
 
     // KOTLIN
     implementation "androidx.core:core-ktx:$versions.coreKtx"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    ktlint "com.pinterest:ktlint:$versions.ktLint"
 
     // NETWORKING
-    implementation "io.reactivex.rxjava3:rxandroid:$versions.rxjava"
-    implementation "io.reactivex.rxjava3:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$versions.rxJavaAdapter"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.gsonConverter"
+    implementation "com.google.code.gson:gson:$versions.gson"
     implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.loggingIntercept"
+
+    // DATABASE
+    implementation "androidx.room:room-runtime:$versions.room"
+    implementation "androidx.room:room-ktx:$versions.room"
+    annotationProcessor "androidx.room:room-compiler:$versions.room"
+    implementation "androidx.room:room-runtime:$versions.room"
+    kapt "androidx.room:room-compiler:$versions.room"
+    testImplementation "androidx.room:room-testing:$versions.room"
+    implementation "com.facebook.stetho:stetho:$versions.stetho"
 
     // DEPENDENCY INJECTION
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack_version"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack_version"
     implementation "org.koin:koin-core:$versions.koin"
     implementation "org.koin:koin-androidx-scope:$versions.koin"
     implementation "org.koin:koin-androidx-ext:$versions.koin"
@@ -65,6 +126,13 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics:$versions.firebase"
     implementation "com.google.firebase:firebase-crashlytics:$versions.fcrashlytics"
     implementation "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
+
+    // TRANSLATOR
+    implementation "com.google.firebase:firebase-ml-natural-language:$versions.firebaseNatLang"
+    implementation "com.google.firebase:firebase-ml-natural-language-translate-model:$versions.firebaseNatModel"
+
+    // ANIMATION
+    implementation "com.airbnb.android:lottie:$versions.lottie"
 
     // TESTS
     testImplementation 'junit:junit:4.12'
