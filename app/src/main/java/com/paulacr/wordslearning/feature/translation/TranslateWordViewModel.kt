@@ -1,5 +1,8 @@
 package com.paulacr.wordslearning.feature.translation
 
+import android.widget.EditText
+import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +10,8 @@ import androidx.lifecycle.ViewModel
 import com.paulacr.wordslearning.data.Language
 import com.paulacr.wordslearning.data.Language.ENGLISH
 import com.paulacr.wordslearning.data.Language.RUSSIAN
+import com.paulacr.wordslearning.data.WordChecker
+import com.paulacr.wordslearning.feature.translation.TranslationState.CORRECT
 import com.paulacr.wordslearning.feature.translation.TranslationState.DISABLED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ENABLED
 import com.paulacr.wordslearning.feature.translation.TranslationState.ERROR
@@ -24,12 +29,25 @@ enum class TranslationState {
     DISABLED,
     STARTED,
     FINISHED,
-    ERROR
+    ERROR,
+    CORRECT
 }
 
 class TranslateWordViewModel @ViewModelInject constructor(
-    private val repository: WordRepository
+    private val repository: WordRepository,
+    private val wordChecker: WordChecker
 ) : ViewModel() {
+
+    companion object {
+        @BindingAdapter("android:text")
+        @JvmStatic
+        fun setWord(view: EditText, newValue: String?) {
+            // Important to break potential infinite loops.
+            if (view.text.toString() != newValue) {
+                view.setText(newValue)
+            }
+        }
+    }
 
     private val viewModelJob = SupervisorJob()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -39,19 +57,32 @@ class TranslateWordViewModel @ViewModelInject constructor(
     var toLanguage: Language = RUSSIAN
 
     var word = ObservableField("")
+    var translationField = ObservableField<String>()
+    var isCorrectTranslation = ObservableBoolean(false)
+    var showResult = ObservableBoolean(false)
 
     fun showWordToTranslate() {
         uiScope.launch {
-            val word = repository.getRandomWord()
+            val randomWord = repository.getRandomWord()
             postValue(FINISHED)
-            this@TranslateWordViewModel.word.set(word.name)
+            this@TranslateWordViewModel.word.set(randomWord.word)
         }
     }
 
-    private fun translateResult(): Consumer<String> = Consumer {
-        postValue(FINISHED)
-        word.set(it)
+    fun onTranslate() = translationResult().apply {
+        isCorrectTranslation.set(this)
+        if (this) postValue(CORRECT)
+        else postValue(ERROR)
+        showResult.set(true)
     }
+
+    private fun translationResult() =
+        wordChecker.isCorrectTranslation(word.get().toString(), translationField.get().toString())
+
+//    private fun translateResult(): Consumer<String> = Consumer {
+//        postValue(FINISHED)
+//        word.set(it)
+//    }
 
     fun onTranslateWordTextChanged(
         s: CharSequence,
@@ -59,12 +90,17 @@ class TranslateWordViewModel @ViewModelInject constructor(
         before: Int,
         count: Int
     ) {
-        if (s.isNotEmpty()) postValue(ENABLED)
-        else postValue(DISABLED)
+        if (s.isNotEmpty()) {
+            postValue(ENABLED)
+            translationField.set(s.toString())
+        } else postValue(DISABLED)
     }
 
     fun onClearTextClicked() {
         postValue(DISABLED)
+        showResult.set(false)
+        translationField.set("")
+        showWordToTranslate()
     }
 
     private fun onError() = Consumer<Throwable> {

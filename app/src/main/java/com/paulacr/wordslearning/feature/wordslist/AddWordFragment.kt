@@ -1,11 +1,15 @@
 package com.paulacr.wordslearning.feature.wordslist
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.paulacr.wordslearning.R
 import com.paulacr.wordslearning.data.TextWord
 import com.paulacr.wordslearning.databinding.FragmentAddWordBinding
 import com.paulacr.wordslearning.feature.translation.TranslationState
@@ -16,6 +20,19 @@ class AddWordFragment : Fragment() {
     private lateinit var binding: FragmentAddWordBinding
     private lateinit var observerWordItems: Observer<List<TextWord>>
     private lateinit var stateObserver: Observer<TranslationState>
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_translate_word, container, false)
+        binding.viewModel = viewModel
+        setHasOptionsMenu(true)
+
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

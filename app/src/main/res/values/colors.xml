@@ -8,4 +8,6 @@
     <color name="medium_gray">#8C8989</color>
     <color name="green">#2A672A</color>
     <color name="green_light">#32BEA6</color>
+    <color name="blue">#1A56D7</color>
+    <color name="red">#EA1111</color>
 </resources>

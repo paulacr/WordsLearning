@@ -8,7 +8,7 @@ interface WordRepository {
 
     suspend fun addWord(word: Word): Long
 
-    //todo clearAll
+    // todo clearAll
 
-    //todo delete(word: Word)
+    // todo delete(word: Word)
 }

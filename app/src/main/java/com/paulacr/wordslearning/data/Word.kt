@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 class Word(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
-    val name: String,
-    var language: Language
+    val word: String,
+    val translation: String,
+    var fromLanguage: Language,
+    var toLanguage: Language
 )

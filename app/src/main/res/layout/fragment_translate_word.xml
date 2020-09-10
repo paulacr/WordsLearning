@@ -40,6 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints="no"
+            android:textSize="35sp"
+            android:text="@{viewModel.translationField}"
             android:onTextChanged="@{viewModel.onTranslateWordTextChanged}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +66,7 @@
             android:layout_height="50dp"
             android:contentDescription="@string/accessibility_translate_button"
             android:src="@drawable/ic_tick"
+            android:onClick="@{() -> viewModel.onTranslate()}"
             app:layout_constraintBottom_toBottomOf="@id/translation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +82,21 @@
             app:layout_constraintTop_toBottomOf="@id/translation"
             app:lottie_autoPlay="false"
             app:lottie_rawRes="@raw/success" />
+        
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/translateButtonPlaceholder"
+            tools:text="Aeee"
+            android:textSize="60sp"
+            android:text="@{viewModel.isCorrectTranslation ? @string/translation_result_correct : @string/translation_result_error}"
+            android:textColor="@{viewModel.isCorrectTranslation ? @color/blue : @color/red}"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:visibility="@{viewModel.showResult ? View.VISIBLE : View.GONE}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
